@@ -1,4 +1,4 @@
-# McCartneySQLPortfolio
+# SQL Portfolio
 Portfolio of SQL data analysis project
 
 This project is an SQL analysis of a sample dataset for a fictional movie rental company looking to launch an online video rental service using their existing video library.
