@@ -1,7 +1,5 @@
 # SQL Portfolio
-Portfolio of SQL data analysis project
-
-This project is an SQL analysis of a sample dataset for a fictional movie rental company looking to launch an online video rental service using their existing video library.
+This project is an SQL analysis of a sample dataset for a fictional movie rental company looking to launch an online video rental service using their existing video library. This analysis was done for educational purposes only.
 
 The analysis was done using PostgreSQL and the report figures were created in Tableau. The data dictionary includes an ERD created in Lucidchart.
 
