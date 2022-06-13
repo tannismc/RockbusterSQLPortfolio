@@ -1,0 +1,42 @@
+-- This SQL query generates the ten countries with the most customers,
+-- the ten cities within those countries with the most customers,
+-- and the 5 customers within those cities who have spent the most money.
+-- The CTEs named top10countries and top10cities can be run as separate SQL queries
+-- to save that information in separate tables.
+
+WITH top10countries_cte AS (
+	SELECT D.country,
+		COUNT(customer_id) AS number_of_customers
+	FROM customer A
+	INNER JOIN address B ON A.address_id = B.address_id
+	INNER JOIN city C ON B.city_id = C.city_id
+	INNER JOIN country D ON C.country_id = D.country_id
+	GROUP BY country
+	ORDER BY COUNT(customer_id) DESC
+	LIMIT 10),
+
+	top10cities_cte AS (
+	SELECT C.city,
+	COUNT(customer_id) AS number_of_customers
+	FROM customer A
+	INNER JOIN address B ON A.address_id = B.address_id
+	INNER JOIN city C ON B.city_id = C.city_id
+	INNER JOIN country D ON C.country_id = D.country_id
+	WHERE country IN (
+		SELECT country FROM top10countries_cte)
+	GROUP BY city
+	ORDER BY COUNT(customer_id) DESC
+	LIMIT 10)
+
+SELECT A.customer_id, A.first_name, A.last_name, D.country, C.city,
+	SUM(E.amount) AS total_paid
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_id = D.country_id
+INNER JOIN payment E ON A.customer_id = E.customer_id
+WHERE city IN (
+	SELECT city FROM top10cities_cte)
+GROUP BY A.customer_id, D.country, C.city
+ORDER BY total_paid DESC
+LIMIT 5
