@@ -1,0 +1,18 @@
+-- This SQL query generates descriptive statistics for the film table in the Rockbuster database
+
+SELECT mode() WITHIN GROUP (ORDER BY release_year) AS modal_release_year,
+		MIN(rental_rate) AS min_rent,
+		MAX(rental_rate) AS max_rent,
+		ROUND(AVG(rental_rate),2)  AS avg_rent,
+		MIN(rental_duration) AS min_duration,
+		MAX(rental_duration) AS max_duration,
+		ROUND(AVG(rental_duration) ,0) AS avg_rent_duration,
+		MIN(length) AS min_length,
+		MAX(length) AS max_length,
+		ROUND(AVG(length) ,3) AS avg_length,
+		MIN(replacement_cost) AS min_replacement_cost,
+		MAX(replacement_cost) AS max_replacement_cost,
+		ROUND(AVG(replacement_cost) ,2) AS avg_replacement_cost,
+		mode() WITHIN GROUP (ORDER BY rating) AS modal_rating
+		COUNT(*) AS count_rows
+	FROM film;
