@@ -1,0 +1,15 @@
+-- This SQL querie creates a list of the films in order of their rental revenue
+
+SELECT A.title,
+	A.rating,
+	E.name AS genre,
+	A.rental_rate,
+	COUNT(C.rental_id) AS number_of_rentals,
+	(rental_rate * COUNT(C.rental_id)) as rental_revenue
+FROM film A
+INNER JOIN inventory B ON A.film_id = B.film_id
+INNER JOIN rental C ON B.inventory_id = C.inventory_id
+INNER JOIN film_category D ON A.film_id = D.film_id
+INNER JOIN category E ON D.category_id = E.category_id
+GROUP BY title, rental_rate, rating, name
+ORDER BY rental_revenue DESC
