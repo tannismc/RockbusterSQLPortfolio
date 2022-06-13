@@ -1,4 +1,4 @@
--- This SQL querie creates a list of the films in order of their rental revenue
+-- This SQL query creates a list of the films in order of their rental revenue
 
 SELECT A.title,
 	A.rating,
